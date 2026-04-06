@@ -2,7 +2,17 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
+  
+  /* Desert theme colors */
+  --sand: #D4A574;
+  --beige: #E8DCC4;
+  --burnt-orange: #C87533;
+  --sand-light: #E8D4B8;
+  --sand-dark: #3c3122;
+  --orange-light: #E89A6F;
+  --sand-lightest: #F5EDDD;
+  --sand-lighter: #E8DCC4;
 }
 
 @theme inline {
@@ -10,13 +20,16 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  
+  /* Desert color palette */
+  --color-sand: var(--sand);
+  --color-beige: var(--beige);
+  --color-burnt-orange: var(--burnt-orange);
+  --color-sand-light: var(--sand-light);
+  --color-sand-dark: var(--sand-dark);
+  --color-orange-light: var(--orange-light);
+  --color-sand-lightest: var(--sand-lightest);
+  --color-sand-lighter: var(--sand-lighter);
 }
 
 body {

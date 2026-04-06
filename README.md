@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend for Bloger
 
-## Getting Started
+This is a Next.js application designed to work with the Wagtail backend.
 
-First, run the development server:
+## Connecting to the Wagtail API
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+To fetch content from the Wagtail API, you'll need to make requests to the appropriate endpoints. The base URL for the API will be your Wagtail site's URL plus `/api/v2`.
+
+For example, to fetch a list of pages, you would make a GET request to `http://localhost:8000/api/v2/pages/`.
+
+You can use a library like `axios` or the built-in `fetch` API in your Next.js components to retrieve data from the Wagtail API.
+
+### Example: Fetching Pages
+
+Here's an example of how you might fetch a list of pages in a Next.js component:
+
+```javascript
+async function getPages() {
+  const res = await fetch('http://localhost:8000/api/v2/pages/');
+  if (!res.ok) {
+    throw new Error('Failed to fetch pages');
+  }
+  const data = await res.json();
+  return data.items;
+}
+
+export default async function Page() {
+  const pages = await getPages();
+
+  return (
+    <main>
+      <h1>Pages</h1>
+      <ul>
+        {pages.map((page) => (
+          <li key={page.id}>{page.title}</li>
+        ))}
+      </ul>
+    </main>
+  );
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running the Development Servers
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1.  **Backend (Wagtail):**
+    ```bash
+    cd ../backend
+    source env/bin/activate
+    python manage.py runserver
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2.  **Frontend (Next.js):**
+    ```bash
+    cd ../frontend
+    npm run dev
+    ```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Now you can start developing your frontend application, fetching data from your Wagtail backend.
