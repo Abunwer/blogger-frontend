@@ -16,6 +16,10 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
   
   const project = await getProject(pageId);
 
+  if (!project) {
+    notFound();
+  }
+
   const formatDate = (dateString?: string) => {
     if (!dateString) return '';
     const date = new Date(dateString);

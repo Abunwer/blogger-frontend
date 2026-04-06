@@ -1,27 +1,39 @@
 'use client';
 
-import { Category } from '@/lib/wagtail';
 import { useRouter } from 'next/navigation';
 
-interface CategoryFilterProps {
-  categories: Category[];
-  activeCategory?: string;
+export interface FilterCategory {
+  id: number;
+  name: string;
+  slug: string;
+  icon?: string;
 }
 
-export default function CategoryFilter({ categories, activeCategory }: CategoryFilterProps) {
+interface CategoryFilterProps {
+  categories: FilterCategory[];
+  activeCategory?: string;
+  basePath: string;
+  allLabel?: string;
+}
+
+export default function CategoryFilter({
+  categories,
+  activeCategory,
+  basePath,
+  allLabel = 'All',
+}: CategoryFilterProps) {
   const router = useRouter();
 
   const handleCategoryClick = (slug?: string) => {
     if (slug) {
-      router.push(`/projects?category=${slug}`);
+      router.push(`${basePath}?category=${slug}`);
     } else {
-      router.push('/projects');
+      router.push(basePath);
     }
   };
 
   return (
     <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-      {/* All Button */}
       <button
         onClick={() => handleCategoryClick()}
         className={`px-4 py-2 rounded-full font-medium text-sm whitespace-nowrap transition-all duration-200 ${
@@ -30,10 +42,9 @@ export default function CategoryFilter({ categories, activeCategory }: CategoryF
             : 'bg-sand-light text-sand-dark hover:bg-sand border border-sand'
         }`}
       >
-        All Projects
+        {allLabel}
       </button>
-      
-      {/* Category Buttons */}
+
       {categories.map((category) => (
         <button
           key={category.id}
@@ -51,4 +62,3 @@ export default function CategoryFilter({ categories, activeCategory }: CategoryF
     </div>
   );
 }
-

@@ -38,7 +38,7 @@ export default async function Home() {
       {/* Category Filter */}
       <section className="py-12 px-4 max-w-7xl mx-auto">
         <div className="mb-8">
-          <CategoryFilter categories={categories} />
+          <CategoryFilter categories={categories} basePath="/projects" allLabel="All Projects" />
         </div>
       </section>
 

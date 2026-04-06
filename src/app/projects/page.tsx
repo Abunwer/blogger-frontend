@@ -3,11 +3,11 @@ import ProjectCard from "@/components/ProjectCard";
 import CategoryFilter from "@/components/CategoryFilter";
 
 interface ProjectsPageProps {
-  searchParams: { category?: string };
+  searchParams: Promise<{ category?: string }>;
 }
 
 export default async function ProjectsPage({ searchParams }: ProjectsPageProps) {
-  const categorySlug = searchParams.category;
+  const { category: categorySlug } = await searchParams;
   const [projects, categories] = await Promise.all([
     getProjects(categorySlug),
     getCategories(),
@@ -26,7 +26,12 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
 
         {/* Category Filter */}
         <div className="mb-12">
-          <CategoryFilter categories={categories} activeCategory={categorySlug} />
+          <CategoryFilter
+            categories={categories}
+            activeCategory={categorySlug}
+            basePath="/projects"
+            allLabel="All Projects"
+          />
         </div>
 
         {/* Projects Grid */}

@@ -27,6 +27,12 @@ export default function Header() {
               Projects
             </Link>
             <Link 
+              href="/blog" 
+              className="text-sand-dark hover:text-burnt-orange transition-colors font-medium"
+            >
+              Blog
+            </Link>
+            <Link 
               href="/about" 
               className="text-sand-dark hover:text-burnt-orange transition-colors font-medium"
             >
